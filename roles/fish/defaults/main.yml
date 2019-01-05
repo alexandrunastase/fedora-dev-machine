@@ -1,0 +1,7 @@
+---
+
+set_fish_as_default_shell: false
+
+fish_aliases: []
+#  - alias: gc
+#    command: "git commit"

@@ -1,0 +1,120 @@
+---
+
+- name: Install requirements
+  package: 
+     name: 
+      - gnome-tweak-tool
+      - python3-psutil
+     state: present
+  become: yes
+
+# Set hostname
+
+- name: Set the hostname of the machine
+  hostname:
+    name: "{{ machine_hostname }}"
+  when: machine_hostname != ""
+
+# Set trackpad behaviour
+
+- name: Set default trackpad behavior to Area
+  dconf: 
+    key: /org/gnome/desktop/peripherals/touchpad/click-method
+    value: "'areas'"
+
+# Set keyboard shortcuts
+
+- name: Set Super+E shortcut to open the file manager
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/home
+     value: "'<Super>e'"
+
+- name: Set Super+B shortcut to open the browser
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/www
+     value: "'<Super>b'"
+
+- name: Set Super+B shortcut to open the browser
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/show-desktop
+     value: "['<Super>d']"
+
+- name: Create binding for terminal
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/binding
+     value: "'<Primary><Alt>t'"
+
+- name: Set the command for the terminal binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/command
+     value: "'gnome-terminal'"
+
+- name: Set the name for the terminal binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/name
+     value: "'Terminal'"
+
+- name: Create binding for System Monitor
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/binding
+     value: "'<Primary><Shift>Escape'"
+
+- name: Set the command for the System Monitor binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/command
+     value: "'gnome-system-monitor'"
+
+- name: Set the name for the System Monitor binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/name
+     value: "'System Monitor'"
+
+# Note: This will override other custom keybindings
+- name: Add custom keybindings
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/']"
+
+# Other Gnome tweaks
+
+# Set shortcut for opening terminal from nautilus
+# https://stackoverflow.com/questions/48840027/ubuntu-open-terminal-in-current-folder-with-shortcut
+
+- name: Ensure nautilus scripts folder exists
+  file:
+    path: /home/{{ansible_user}}/.local/share/nautilus/scripts
+    state: directory
+
+- name: Create Terminal script
+  template:
+    src: nautilus_terminal_script.j2
+    dest: /home/{{ansible_user}}/.local/share/nautilus/scripts/Terminal
+
+- name: Make Terminal script executable
+  file:
+    path: /home/{{ansible_user}}/.local/share/nautilus/scripts/Terminal
+    mode: a+x
+
+- name: Create nautilus script-accels file
+  template:
+    src: script-accels.j2
+    dest: /home/{{ansible_user}}/.config/nautilus/scripts-accels
+
+# Enable automatic login
+- name: Set AutomaticLoginEnable to True
+  ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: AutomaticLoginEnable
+    value: True
+    mode: 0644
+  become: yes
+  
+- name: Enable AutomaticLogin to the current user
+  ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: AutomaticLogin
+    value: "{{ansible_user}}"
+    mode: 0644
+  become: yes

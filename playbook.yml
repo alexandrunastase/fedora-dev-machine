@@ -1,0 +1,14 @@
+---
+
+- hosts: localhost
+  roles:
+    - common
+    - fish
+    - google-chrome
+    - os-configuration
+    - dash-to-dock
+    - docker
+    - development
+
+  vars_files: 
+    - vars.yml

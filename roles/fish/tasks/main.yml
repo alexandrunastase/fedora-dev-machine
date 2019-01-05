@@ -1,0 +1,44 @@
+---
+
+- name: Install fish shell
+  package:
+    name: 
+      - git
+      - curl
+      - fish
+      - fzf
+    state: present
+  become: yes
+
+- name: Ensure fish folder exists in .config
+  file:
+    path: /home/{{ansible_user}}/.config/fish
+    state: directory
+
+- name: Create config.fish file
+  template: 
+    src: config_fish.j2
+    dest: "/home/{{ansible_user}}/.config/fish/config.fish"
+
+# Use this instead of chsh to prevent issues with snap not adding apps to launcher
+# Note: If you don't want the .bashrc file to be overriden set the 
+- name: Set fish as default shell
+  template: 
+    src: bashrc.j2
+    dest: /home/{{ansible_user}}/.bashrc
+  when: set_fish_as_default_shell == true
+
+- name: Install fisher
+  shell: 'curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish'
+  args:
+    warn: false
+
+- name: Install pure theme
+  shell: 'fisher add rafaelrinaldi/pure'
+  args:
+    executable: /usr/bin/fish
+
+- name: Install fzf plugin
+  shell: 'fisher add jethrokuan/fzf'
+  args:
+    executable: /usr/bin/fish

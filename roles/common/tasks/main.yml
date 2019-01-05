@@ -1,0 +1,13 @@
+---
+
+- name: Install common packages
+  package: 
+     name: 
+       - git
+       - vim
+       - htop
+       - exa
+       - snapd
+       - deluge
+     state: present
+  become: yes

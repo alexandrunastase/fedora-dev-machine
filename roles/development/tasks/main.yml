@@ -1,0 +1,63 @@
+---
+
+- name: Install requirements
+  package: 
+     name: 
+       - snapd
+       - git
+     state: present
+  become: yes
+
+- name: Enable classic mode installs for snap
+  file:
+     src: /var/lib/snapd/snap
+     path: /snap
+     state: link
+  become: yes
+
+#TODO: Update snap commands after ansible 2.8 release
+# See https://docs.ansible.com/ansible/devel/modules/snap_module.html
+
+- name: Install postman
+  command: 'snap install postman'
+  become: yes
+
+- name: Install phpstorm
+  command: 'snap install phpstorm --classic'
+  become: yes
+
+- name: Install datagrip
+  command: 'snap install datagrip --classic'
+  become: yes
+
+- name: Install vscode
+  command: 'snap install vscode --classic'
+  become: yes
+  
+- name: Install nodejs
+  command: 'snap install node --channel=10/stable --classic'
+  become: yes
+
+# Devilbox
+- name: Ensure Projects folder exists
+  file:
+    name: /home/{{ansible_user}}/Projects
+    state: directory
+
+- name: Check if devilbox exists
+  stat:
+    path: "/home/{{ansible_user}}/Projects/devilbox"
+  register: devilbox
+
+- name: Clone devilbox if it does not exist
+  git:
+     repo: https://github.com/cytopia/devilbox.git
+     dest: /home/{{ansible_user}}/Projects/devilbox
+  when: devilbox.stat.exists == false
+
+# Configure git
+- name: Create or override .gitconfig file
+  template:
+     src: git_config.j2
+     dest: /home/{{ ansible_user }}/.gitconfig
+

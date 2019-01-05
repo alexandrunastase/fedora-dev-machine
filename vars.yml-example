@@ -1,0 +1,12 @@
+---
+
+#git_name: John Doe
+#git_email: john.doe@email.com
+
+#machine_hostname: "my_hostname"
+
+#fish_aliases:
+#  - alias: gc
+#    command: "git commit"
+
+#set_fish_as_default_shell: true

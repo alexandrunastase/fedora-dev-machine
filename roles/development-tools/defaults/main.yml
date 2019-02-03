@@ -1,0 +1,9 @@
+---
+
+flatpak_urls: 
+  - https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
+  - https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
+  - https://flathub.org/repo/appstream/com.jetbrains.DataGrip.flatpakref
+
+git_name: ""
+git_email:  ""

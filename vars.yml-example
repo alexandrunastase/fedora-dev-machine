@@ -1,12 +1,25 @@
 ---
 
+#machine_hostname: "my_hostname"
+
 #git_name: John Doe
 #git_email: john.doe@email.com
 
-#machine_hostname: "my_hostname"
+# fish_aliases:
+#   - alias: code
+#     command: "flatpak run com.visualstudio.code"
 
-#fish_aliases:
-#  - alias: gc
-#    command: "git commit"
+#dotnet_core_sdk_version: 2.2
 
 #set_fish_as_default_shell: true
+
+# flatpak_urls: 
+#     #Postman
+#   - https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
+
+#     #Visual Studio Code
+#   - https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
+
+#     # Jetbrains DataGrip
+#   - https://flathub.org/repo/appstream/com.jetbrains.DataGrip.flatpakref
+

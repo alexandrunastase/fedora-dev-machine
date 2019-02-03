@@ -1,0 +1,26 @@
+---
+
+- name: Import microsoft rpm key
+  rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  become: yes
+
+- name: Add microsoft repo to dnf repositories
+  get_url: 
+     url: https://packages.microsoft.com/config/fedora/27/prod.repo
+     dest: /etc/yum.repos.d/microsoft-prod.repo
+     owner: root
+     group: root
+  become: yes
+
+- name: Update package manager
+  dnf:
+     update_cache: yes
+  become: yes
+
+- name: Install .NET Core SDK
+  package:
+    name: dotnet-sdk-{{dotnet_core_sdk_version}}
+    state: latest
+  become: yes 

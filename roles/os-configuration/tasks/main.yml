@@ -15,15 +15,13 @@
     name: "{{ machine_hostname }}"
   when: machine_hostname != ""
 
-# Set trackpad behaviour
-
-- name: Set default trackpad behavior to Area
-  dconf: 
-    key: /org/gnome/desktop/peripherals/touchpad/click-method
-    value: "'areas'"
-
 # Set keyboard shortcuts
 
+- name: Set Ctrl+Q shortcut to close a window
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/close
+     value: "['<Primary>q']"
+     
 - name: Set Super+E shortcut to open the file manager
   dconf: 
      key: /org/gnome/settings-daemon/plugins/media-keys/home

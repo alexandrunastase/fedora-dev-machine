@@ -4,6 +4,7 @@
   package: 
      name: 
        - snapd
+       - flatpak
        - git
      state: present
   become: yes
@@ -16,27 +17,24 @@
   become: yes
 
 #TODO: Update snap commands after ansible 2.8 release
-# See https://docs.ansible.com/ansible/devel/modules/snap_module.html
-
-- name: Install postman
-  command: 'snap install postman'
-  become: yes
+# See https://docs.ansible.com/ansiblel/devel/modules/snap_module.html
 
 - name: Install phpstorm
   command: 'snap install phpstorm --classic'
-  become: yes
-
-- name: Install datagrip
-  command: 'snap install datagrip --classic'
-  become: yes
-
-- name: Install vscode
-  command: 'snap install vscode --classic'
   become: yes
   
 - name: Install nodejs
   command: 'snap install node --channel=10/stable --classic'
   become: yes
+
+# Install flatpaks
+# TODO: Update command to use flatpak module when issues with it are fixed
+
+- name: Install flatpaks
+  command: "flatpak install {{ item }} -y"
+  become: yes
+  ignore_errors: yes
+  loop: "{{ flatpak_urls }}"
 
 # Devilbox
 - name: Ensure Projects folder exists
@@ -60,4 +58,3 @@
   template:
      src: git_config.j2
      dest: /home/{{ ansible_user }}/.gitconfig
-

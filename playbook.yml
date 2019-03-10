@@ -10,6 +10,7 @@
     - docker
     - development-tools
     - dotnet-core
+    - suru-theme
 
   vars_files: 
     - vars.yml

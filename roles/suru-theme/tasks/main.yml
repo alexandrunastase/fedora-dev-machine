@@ -1,0 +1,39 @@
+---
+
+- name: Install dependencies
+  package: 
+    name: 
+      - meson
+      - git
+  become: yes
+
+- name: Clone repository
+  git: 
+     repo: 'https://github.com/snwh/suru-icon-theme'
+     dest: "{{suru_theme_install_path}}"
+
+- name: Build
+  command: 'meson build --prefix=/usr'
+  args:
+     chdir: "{{suru_theme_install_path}}"
+  become: yes
+
+
+- name: Install 
+  command: 'ninja -C "build" install'
+  args:
+     chdir: "{{suru_theme_install_path}}"
+  become: yes
+
+
+- name: Set Suru icons as default
+  dconf: 
+     key: /org/gnome/desktop/interface/icon-theme
+     value: "'Suru'"
+     state: present
+
+- name: Set Suru cursor as default
+  dconf: 
+     key: /org/gnome/desktop/interface/cursor-theme
+     value: "'Suru'"
+     state: present

@@ -7,7 +7,7 @@
       - curl
       - fish
       - fzf
-    state: present
+    state: latest
   become: yes
 
 - name: Ensure fish folder exists in .config
@@ -19,14 +19,6 @@
   template: 
     src: config_fish.j2
     dest: "/home/{{ansible_user}}/.config/fish/config.fish"
-
-# Use this instead of chsh to prevent issues with snap not adding apps to launcher
-# Note: If you don't want the .bashrc file to be overriden set the 
-- name: Set fish as default shell
-  template: 
-    src: bashrc.j2
-    dest: /home/{{ansible_user}}/.bashrc
-  when: set_fish_as_default_shell == true
 
 - name: Install fisher
   shell: 'curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish'
@@ -42,3 +34,7 @@
   shell: 'fisher add jethrokuan/fzf'
   args:
     executable: /usr/bin/fish
+
+- name: Set fish as default shell
+  command: "usermod -s /usr/bin/fish {{ansible_user}}"
+  become: yes

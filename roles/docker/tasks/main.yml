@@ -9,6 +9,8 @@
 - name: Install docker
   package: 
     name: docker-ce
+    state: latest
+
   become: yes
 
 - name: Add user to docker group
@@ -26,8 +28,9 @@
 
 - name: Download docker-compose
   get_url: 
-      url: "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-{{ansible_system}}-{{ansible_userspace_architecture}}"
+      url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-{{ansible_system}}-{{ansible_userspace_architecture}}"
       dest: /usr/local/bin/docker-compose
       owner: "{{ansible_user}}"
       mode: 0755
-  become: yes
+      force: yes
+  become: yes 

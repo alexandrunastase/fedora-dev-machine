@@ -13,13 +13,10 @@
 
 #set_fish_as_default_shell: true
 
-# flatpak_urls: 
-#     #Postman
+#flatpak_urls: 
+#   - https://flathub.org/repo/appstream/org.videolan.VLC.flatpakref
 #   - https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
-
-#     #Visual Studio Code
 #   - https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
-
-#     # Jetbrains DataGrip
+#   - https://flathub.org/repo/appstream/com.skype.Client.flatpakref
 #   - https://flathub.org/repo/appstream/com.jetbrains.DataGrip.flatpakref
 

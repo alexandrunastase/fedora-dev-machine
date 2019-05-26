@@ -4,11 +4,10 @@
   package: 
      name: 
        - git
+       - flatpak
        - vim
        - htop
        - exa
-       - flatpak
-       - snapd
        - deluge
-     state: present
+     state: latest
   become: yes

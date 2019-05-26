@@ -3,38 +3,63 @@
 - name: Install requirements
   package: 
      name: 
-       - snapd
        - flatpak
        - git
-     state: present
+       - nodejs
+     state: latest
   become: yes
 
-- name: Enable classic mode installs for snap
+# Jetbrains toolbox 
+
+- name: Download jetbrains toolbox
+  get_url: 
+     url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5179.tar.gz
+     dest: /tmp/jetbrains_toolbox.tar.gz
+     mode: 0550
+
+- name: Extract jetbrains toolbox
+  unarchive:
+    src: /tmp/jetbrains_toolbox.tar.gz
+    dest: /tmp
+
+- name: Extract jetbrains toolbox
+  unarchive:
+    src: /tmp/jetbrains_toolbox.tar.gz
+    dest: /tmp
+    
+- name: Copy jetbrains toolbox extracted folder to home
+  copy:
+    src: /tmp/jetbrains-toolbox-1.14.5179/jetbrains-toolbox
+    dest: /home/{{ansible_user}}/
+    owner: '{{ansible_user}}'
+    group: '{{ansible_user}}'
+    mode: 0554
+
+- name: Remove extracted folder
   file:
-     src: /var/lib/snapd/snap
-     path: /snap
-     state: link
-  become: yes
+    path: /tmp/jetbrains-toolbox-1.14.5179
+    state: absent
 
-#TODO: Update snap commands after ansible 2.8 release
-# See https://docs.ansible.com/ansiblel/devel/modules/snap_module.html
-
-- name: Install phpstorm
-  command: 'snap install phpstorm --classic'
-  become: yes
-  
-- name: Install nodejs
-  command: 'snap install node --channel=10/stable --classic'
-  become: yes
+- name: Remove archive
+  file:
+    path: /tmp/jetbrains_toolbox.tar.gz
+    state: absent
 
 # Install flatpaks
 # TODO: Update command to use flatpak module when issues with it are fixed
 
+# - name: Install flatpaks
+#   command: "flatpak install {{ item }} -y"
+#   become: yes
+#   ignore_errors: yes
+#   loop: "{{ flatpak_urls }}"
+
 - name: Install flatpaks
-  command: "flatpak install {{ item }} -y"
-  become: yes
-  ignore_errors: yes
+  flatpak:
+    name: '{{ item }}'
+    state: present
   loop: "{{ flatpak_urls }}"
+  become: yes
 
 # Devilbox
 - name: Ensure Projects folder exists

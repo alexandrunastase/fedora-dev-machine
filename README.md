@@ -1,6 +1,6 @@
 ## Fedora Workstation provisioning using Ansible
 
- The playbook was tested only on Fedora 29.
+ Note: The playbook was tested only on Fedora 30.
 
 ### What the playbook does:
 
@@ -9,25 +9,22 @@
     - vim
     - htop
     - exa
-    - snapd
-    - deluge 
+    - deluge
 
 - Installs and enables **dash-to-dock** Gnome extension. It also adds some customizations like moving the dock to the bottom. (A restart may be needed for the changes to fully apply)
-- Installs **docker and docker-compose**. It uses the stable version, targeted towards fedora 28, because the one for fedora 29 is not stable yet.
-- Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme. If the **set_fish_as_default_shell** variable is set to true in the vars.yml file the .bashrc file will be overriden to include starting of fish at the end. This allows using snapd launcher shorcuts along with fish shell.
-- Installs **Google Chrome** browser
+- Installs **docker and docker-compose**. It uses the latest supported version for fedora.
+- Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme.
+- Installs **Brave** browser
 - Installs the following development tools:
     - Postman (https://www.getpostman.com)
-    - PHPStorm (https://www.jetbrains.com/phpstorm)
-    - Datagrip (https://www.jetbrains.com/datagrip)
     - Visual Studio Code (https://code.visualstudio.com/)
     - NodeJs (https://nodejs.org/en/)
+    - Jetbrains toolbox is found in home folder
 - Ensures a folder named **Projects** exists in the user's home directory
-- Clones **devilbox** in the Projects folder. (https://github.com/cytopia/devilbox)
-- Configures colors for git. I also adds name and email in .gitconfig if the corresponding variables are set in vars.yml
+- Clones **devilbox** (LEMP/MEAN development environment) in the Projects folder. (https://github.com/cytopia/devilbox)
+- Configures colors for git. It also adds name and email in .gitconfig if the corresponding variables are set in vars.yml
 - Adds the following OS configuration :
      - Sets the hostname if the corresponding variable is set in vars.yml
-     - Sets the default trackpad behavior to "Area"
      - Enables Automatic Login
 - Adds the following keyboard shortcuts:
      - **Super+T** from Nautilus to open terminal from the current location in the file explorer
@@ -65,5 +62,5 @@ What it does:
 $ ./provision.sh
 ```
 
-Note: The script may ask for the sudo password twice: once for installing ansible, and one more time for running the playbook.
+Note: The script will ask for the sudo password twice: once for installing Ansible, and one more time for running the playbook.
 

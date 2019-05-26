@@ -5,6 +5,7 @@
     name: 
      - unzip
      - python3-psutil
+    state: latest
   become: yes
   
 # Dash-to-dock: https://micheleg.github.io/dash-to-dock/download.html

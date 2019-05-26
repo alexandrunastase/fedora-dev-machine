@@ -2,15 +2,19 @@
 
 - hosts: localhost
   roles:
+    - cleanup
     - common
+
+    - brave
     - fish
-    - google-chrome
-    - os-configuration
-    - dash-to-dock
-    - docker
+
     - development-tools
     - dotnet-core
-    - suru-theme
+    - docker
 
+    - os-configuration
+    - dash-to-dock
+    - suru-theme
+    
   vars_files: 
     - vars.yml

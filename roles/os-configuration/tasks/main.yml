@@ -32,7 +32,7 @@
      key: /org/gnome/settings-daemon/plugins/media-keys/www
      value: "'<Super>b'"
 
-- name: Set Super+B shortcut to open the browser
+- name: Set Super+D shortcut to show the desktop
   dconf: 
      key: /org/gnome/desktop/wm/keybindings/show-desktop
      value: "['<Super>d']"
@@ -67,6 +67,8 @@
      key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/name
      value: "'System Monitor'"
 
+
+
 # Note: This will override other custom keybindings
 - name: Add custom keybindings
   dconf: 
@@ -75,6 +77,21 @@
 
 # Other Gnome tweaks
 
+- name: Set Source Code Pro Bold 11 as monospace font
+  dconf: 
+     key: /org/gnome/desktop/interface/monospace-font-name
+     value: "'Source Code Pro Bold 11'"
+
+- name: Set antialiasing to subpixel
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/xsettings/antialiasing
+     value: "'rgba'"
+
+- name: Set enabled extensions
+  dconf: 
+     key: /org/gnome/shell/enabled-extensions
+     value: "['dash-to-dock@micxgx.gmail.com']"
+  
 # Set shortcut for opening terminal from nautilus
 # https://stackoverflow.com/questions/48840027/ubuntu-open-terminal-in-current-folder-with-shortcut
 
@@ -116,3 +133,24 @@
     value: "{{ansible_user}}"
     mode: 0644
   become: yes
+
+- name: Copy background image
+  copy:
+     src: "{{ role_path }}/files/background.jpg"
+     dest: /home/{{ansible_user}}/Pictures/background.jpg
+
+- name: Set background image
+  dconf: 
+     key: /org/gnome/desktop/background/picture-uri
+     value: "'file:///home/{{ansible_user}}/Pictures/background.jpg'"
+
+- name: Copy lockscreen image
+  copy:
+     src: "{{ role_path }}/files/lock_screen.jpg"
+     dest: /home/{{ansible_user}}/Pictures/lock_screen.jpg
+
+- name: Set lock screen image
+  dconf: 
+     key: /org/gnome/desktop/screensaver/picture-uri
+     value: "'file:///home/{{ansible_user}}/Pictures/lock_screen.jpg'"
+ 

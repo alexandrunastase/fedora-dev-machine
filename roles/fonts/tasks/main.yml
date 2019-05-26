@@ -1,0 +1,11 @@
+---
+
+- name: Download Inconsolota font
+  get_url:
+     url: https://github.com/googlefonts/Inconsolata/raw/master/fonts/ttf/Inconsolata-Bold.ttf
+     dest: /usr/share/fonts/inconsolata/Inconsolata-Bold.ttf
+     
+- name: Set Inconsolata Bold 11 as monospace font
+  dconf: 
+     key: /org/gnome/desktop/interface/monospace-font-name
+     value: "'Inconsolata Bold 11'"

@@ -15,6 +15,16 @@
     name: "{{ machine_hostname }}"
   when: machine_hostname != ""
 
+
+# Set number of kernels to keep to 10
+
+- name: Set number of backup kernels
+  lineinfile:
+    path: /etc/dnf/dnf.conf
+    regexp: '^installonly_limit='
+    line: 'installonly_limit=10'
+  become: yes
+
 # Set keyboard shortcuts
 
 - name: Set Ctrl+Q shortcut to close a window

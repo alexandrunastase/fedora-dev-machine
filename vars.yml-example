@@ -11,12 +11,10 @@
 
 #dotnet_core_sdk_version: 2.2
 
-#set_fish_as_default_shell: true
-
 #flatpak_urls: 
 #   - https://flathub.org/repo/appstream/org.videolan.VLC.flatpakref
 #   - https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 #   - https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
 #   - https://flathub.org/repo/appstream/com.skype.Client.flatpakref
 #   - https://flathub.org/repo/appstream/com.jetbrains.DataGrip.flatpakref
-
+#   - https://flathub.org/repo/appstream/app.rednotebook.RedNotebook.flatpakref

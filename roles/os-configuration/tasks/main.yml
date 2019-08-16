@@ -78,6 +78,15 @@
      value: "'System Monitor'"
 
 
+- name: Disable Alt+F7 shortcut
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/begin-move
+     value: "[]"
+
+- name: Disable Alt+F8 shortcut
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/begin-resize
+     value: "[]"
 
 # Note: This will override other custom keybindings
 - name: Add custom keybindings

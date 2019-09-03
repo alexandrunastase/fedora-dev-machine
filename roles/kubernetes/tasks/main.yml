@@ -1,0 +1,16 @@
+---
+
+- name: Add kubernetes system repository
+  template: 
+    src: kubernetes_repo.j2
+    dest: /etc/yum.repos.d/kubernetes.repo
+  become: yes
+
+- name: Install kubernetes related packages
+  package: 
+     name: 
+      #  - kubernetes
+       - kubectl
+       - kubectx
+     state: latest
+  become: yes

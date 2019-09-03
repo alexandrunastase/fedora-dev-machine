@@ -11,6 +11,7 @@
     - development-tools
     - dotnet-core
     - docker
+    - kubernetes
 
     - os-configuration
     - dash-to-dock

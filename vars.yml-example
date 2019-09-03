@@ -5,9 +5,14 @@
 #git_name: John Doe
 #git_email: john.doe@email.com
 
+
 # fish_aliases:
-#   - alias: code
-#     command: "flatpak run com.visualstudio.code"
+#    - alias: code
+#      command: "flatpak run com.visualstudio.code"
+#    - alias: kctl
+#      command: "kubectl"
+#    - alias: kns
+#      command: "kubens"
 
 #dotnet_core_sdk_version: 2.2
 

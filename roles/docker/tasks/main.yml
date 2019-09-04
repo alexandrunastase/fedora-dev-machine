@@ -6,11 +6,16 @@
     dest: /etc/yum.repos.d/docker-ce.repo
   become: yes
 
+- name: Add daemon.json configuration
+  template: 
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+  become: yes
+
 - name: Install docker
   package: 
     name: docker-ce
     state: latest
-
   become: yes
 
 - name: Add user to docker group

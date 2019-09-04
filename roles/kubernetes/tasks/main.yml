@@ -6,11 +6,19 @@
     dest: /etc/yum.repos.d/kubernetes.repo
   become: yes
 
-- name: Install kubernetes related packages
+- name: Install kubernetes & kubectl
   package: 
      name: 
       #  - kubernetes
        - kubectl
-       - kubectx
      state: latest
   become: yes
+
+- name: Install kubectx
+  package: 
+     name: 
+       - kubectx
+     state: latest
+     enablerepo: 'cerenit/kubectx'
+  become: yes
+

@@ -7,7 +7,5 @@
        - flatpak
        - vim
        - htop
-       - exa
-       - deluge
      state: latest
   become: yes

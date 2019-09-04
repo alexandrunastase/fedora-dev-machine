@@ -8,11 +8,9 @@
     - git
     - vim
     - htop
-    - exa
-    - deluge
 
 - Installs and enables **dash-to-dock** Gnome extension. It also adds some customizations like moving the dock to the bottom. (A restart may be needed for the changes to fully apply)
-- Installs **docker and docker-compose**. It uses the latest supported version for fedora.
+- Installs **docker and docker-compose**. Configures docker to use 10.10.0.0/16 subnet with a smaller network size than the default. This was done in order to avoid issue when connecting to the AWS network via VPN.
 - Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme.
 - Installs **Brave** browser
 - Installs the following development tools:

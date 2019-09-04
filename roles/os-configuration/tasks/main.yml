@@ -8,6 +8,13 @@
      state: present
   become: yes
 
+- name: Install extra packages
+  package:
+    name: '{{ item }}'
+    state: present
+  loop: "{{ packages }}"
+  become: yes
+
 # Set hostname
 
 - name: Set the hostname of the machine

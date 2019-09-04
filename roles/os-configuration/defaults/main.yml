@@ -1,3 +1,5 @@
 ---
 
 machine_hostname: ""
+
+packages: []

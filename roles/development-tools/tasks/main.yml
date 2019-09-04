@@ -46,14 +46,6 @@
     state: absent
 
 # Install flatpaks
-# TODO: Update command to use flatpak module when issues with it are fixed
-
-# - name: Install flatpaks
-#   command: "flatpak install {{ item }} -y"
-#   become: yes
-#   ignore_errors: yes
-#   loop: "{{ flatpak_urls }}"
-
 - name: Install flatpaks
   flatpak:
     name: '{{ item }}'

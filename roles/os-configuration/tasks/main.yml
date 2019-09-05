@@ -84,16 +84,15 @@
      key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/name
      value: "'System Monitor'"
 
-
-- name: Disable system Alt+F7 shortcut
+- name: Change system Alt+F7 keyboard shortcut used for IDE
   dconf: 
      key: /org/gnome/desktop/wm/keybindings/begin-move
-     value: "'[]'"
+     value: "['<Super>F7']"
 
-- name: Disable system Alt+F8 shortcut
+- name: Change system Alt+F8 keyboard shortcut used for IDE
   dconf: 
      key: /org/gnome/desktop/wm/keybindings/begin-resize
-     value: "'[]'"
+     value: "['<Super>F8']"
 
 # Note: This will override other custom keybindings
 - name: Add custom keybindings

@@ -94,6 +94,11 @@
      key: /org/gnome/desktop/wm/keybindings/begin-resize
      value: "['<Super>F8']"
 
+- name: Disable system Ctrl+Shift+e keyboard shortcut used for IDE
+  dconf: 
+     key: /desktop/ibus/panel/emoji/hotkey
+     value: "['<Control><Shift><Super>e']"
+
 # Note: This will override other custom keybindings
 - name: Add custom keybindings
   dconf: 

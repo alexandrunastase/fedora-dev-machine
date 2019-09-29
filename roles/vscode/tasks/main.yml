@@ -1,0 +1,26 @@
+---
+
+- name: Import microsoft rpm key
+  rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  become: yes
+
+- name: Add vscode system respository
+  template: 
+    src: vscode_repo.j2
+    dest: /etc/yum.repos.d/vscode.repo
+    owner: root
+    group: root
+  become: yes
+
+- name: Update package manager
+  dnf:
+     update_cache: yes
+  become: yes
+
+- name: Install Visual Studio Code
+  package:
+    name: code
+    state: latest
+  become: yes 

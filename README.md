@@ -9,8 +9,6 @@
     - vim
     - htop
 
-- Installs and enables **dash-to-dock** Gnome extension. It also adds some customizations like moving the dock to the bottom. (A restart may be needed for the changes to fully apply)
-- Installs **docker and docker-compose**. Configures docker to use 10.10.0.0/16 subnet with a smaller network size than the default. This was done in order to avoid issue when connecting to the AWS network via VPN.
 - Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme.
 - Installs **Brave** browser
 - Installs the following development tools:
@@ -24,14 +22,21 @@
 - Adds the following OS configuration :
      - Sets the hostname if the corresponding variable is set in vars.yml
      - Enables Automatic Login
+- Installs **docker and docker-compose**. Configures docker to use 10.10.0.0/16 subnet with a smaller network size than the default. This was done in order to avoid issue when connecting to the AWS network via VPN
+- Installs Kubernetes and kubectx. If uncommented, adds aliases (kubectl -> ktl, kubectx -> ktx, kubens -> kns)
 - Adds the following keyboard shortcuts:
      - **Super+T** from Nautilus to open terminal from the current location in the file explorer
      - **CTRL+Shift+Esc** opens the Sytem Monitor
      - **CTRL+Alt+T** opens the terminal
      - **Super+D** hides all windows
+- Inhibts/overrides the following default shorcuts:
+     - **Alt+F7** - used as 'Find Usages'
+     - **Alt+F8** - used as 'Evaluate(in debugger context)'
+
+- Sets fs.inotify.max_user_watches in sysctl to fs.inotify.max_user_watches to prevent issues with some IDEs
 
 Note: 
-- Some dependencies needed to run the ansible commands might be installed as well, such as python3-psutil needed for the dconf command or unzip for installing dash-to-dock
+- Some dependencies needed to run the ansible commands might be installed as well, such as python3-psutil needed for the dconf module or unzip
 - Running the playbook **will override** other custom keybindings
 
 ### Getting started

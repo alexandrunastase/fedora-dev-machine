@@ -3,3 +3,7 @@
 fish_aliases: []
 #  - alias: gc
 #    command: "git commit"
+
+fish_variables: []
+#  - name: NPM_CONFIG_PREFIX
+#    value: "~/.npm-global"

@@ -15,6 +15,17 @@
   loop: "{{ packages }}"
   become: yes
 
+# Increase number of inotify watchers to prevent issues with some IDEs
+
+- name: Increase number of inotify watchers
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: '52428'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: yes
+
 # Set hostname
 
 - name: Set the hostname of the machine
@@ -117,11 +128,6 @@
      key: /org/gnome/settings-daemon/plugins/xsettings/antialiasing
      value: "'rgba'"
 
-- name: Set enabled extensions
-  dconf: 
-     key: /org/gnome/shell/enabled-extensions
-     value: "['dash-to-dock@micxgx.gmail.com']"
-  
 # Set shortcut for opening terminal from nautilus
 # https://stackoverflow.com/questions/48840027/ubuntu-open-terminal-in-current-folder-with-shortcut
 
@@ -151,7 +157,7 @@
     path: /etc/gdm/custom.conf
     section: daemon
     option: AutomaticLoginEnable
-    value: True
+    value: 'True'
     mode: 0644
   become: yes
   

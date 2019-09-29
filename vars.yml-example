@@ -7,23 +7,19 @@
 
 
 # fish_aliases:
-#    - alias: code
-#      command: "flatpak run com.visualstudio.code"
-#    - alias: kctl
-#      command: "kubectl"
-#    - alias: kns
-#      command: "kubens"
+#  - alias: ktl
+#    command: "kubectl"
+#  - alias: kns
+#    command: "kubens"
+#  - alias: ktx
+#    command: "kubectx"
 
-#dotnet_core_sdk_version: 2.2
+#dotnet_core_sdk_version: 3.0
 
 #flatpak_urls: 
 #   - https://flathub.org/repo/appstream/org.videolan.VLC.flatpakref
 #   - https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
-#   - https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
 #   - https://flathub.org/repo/appstream/com.skype.Client.flatpakref
-#   - https://flathub.org/repo/appstream/com.jetbrains.DataGrip.flatpakref
-#   - https://flathub.org/repo/appstream/app.rednotebook.RedNotebook.flatpakref
-#   - https://flathub.org/repo/appstream/io.elementary.code.flatpakref
 
 packages:
   - exa

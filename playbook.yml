@@ -8,14 +8,13 @@
     - brave
     - fish
 
+    - vscode
     - development-tools
     - dotnet-core
     - docker
     - kubernetes
 
     - os-configuration
-    - dash-to-dock
-    - suru-theme
     
   vars_files: 
     - vars.yml

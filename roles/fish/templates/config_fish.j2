@@ -1,3 +1,7 @@
 {% for alias in fish_aliases %}
 alias {{alias.alias}}="{{alias.command}}"
 {% endfor %}
+
+{% for variable in fish_variables %}
+set -x {{variable.name}} {{variable.value}}
+{% endfor %}

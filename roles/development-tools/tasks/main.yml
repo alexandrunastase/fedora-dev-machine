@@ -9,6 +9,14 @@
      state: latest
   become: yes
 
+- name: Make current user owner of global node_modules to allow installing of npm packages globally
+  file:
+    path: /home/{{ansible_user}}/.npm-global
+    state: directory
+    owner: '{{ansible_user}}'
+    group: '{{ansible_user}}'
+  become: yes
+
 # Jetbrains toolbox 
 
 - name: Download jetbrains toolbox

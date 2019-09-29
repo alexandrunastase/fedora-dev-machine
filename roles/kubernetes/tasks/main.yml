@@ -9,7 +9,6 @@
 - name: Install kubernetes & kubectl
   package: 
      name: 
-      #  - kubernetes
        - kubectl
      state: latest
   become: yes

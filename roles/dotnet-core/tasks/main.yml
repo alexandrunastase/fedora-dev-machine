@@ -8,7 +8,7 @@
 
 - name: Add microsoft repo to dnf repositories
   get_url: 
-     url: https://packages.microsoft.com/config/fedora/27/prod.repo
+     url: https://packages.microsoft.com/config/fedora/30/prod.repo
      dest: /etc/yum.repos.d/microsoft-prod.repo
      owner: root
      group: root

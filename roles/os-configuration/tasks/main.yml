@@ -16,11 +16,12 @@
   become: yes
 
 # Increase number of inotify watchers to prevent issues with some IDEs
+# https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 
 - name: Increase number of inotify watchers
   sysctl:
     name: fs.inotify.max_user_watches
-    value: '52428'
+    value: '524288'
     sysctl_set: yes
     state: present
     reload: yes

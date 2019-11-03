@@ -1,6 +1,6 @@
 ## Fedora Workstation provisioning using Ansible
 
- Note: The playbook was tested only on Fedora 30.
+ Note: The playbook was tested only on Fedora 31.
 
 ### What the playbook does:
 
@@ -8,6 +8,13 @@
     - git
     - vim
     - htop
+    - ranger
+    - flatpak
+
+- Installs and adds sensible defaults to the following gnome extensions:
+   - dash-to-dock
+   - appindicator (for tray icons)
+   - dynamic-panel-transparency
 
 - Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme.
 - Installs **Brave** browser
@@ -23,15 +30,18 @@
      - Sets the hostname if the corresponding variable is set in vars.yml
      - Enables Automatic Login
 - Installs **docker and docker-compose**. Configures docker to use 10.10.0.0/16 subnet with a smaller network size than the default. This was done in order to avoid issue when connecting to the AWS network via VPN
-- Installs Kubernetes and kubectx. If uncommented, adds aliases (kubectl -> ktl, kubectx -> ktx, kubens -> kns)
+- Installs Kubernetes and kubectx and kubens
 - Adds the following keyboard shortcuts:
      - **Super+T** from Nautilus to open terminal from the current location in the file explorer
      - **CTRL+Shift+Esc** opens the Sytem Monitor
      - **CTRL+Alt+T** opens the terminal
      - **Super+D** hides all windows
+     - **Super+Pause** shows system information
 - Inhibts/overrides the following default shorcuts:
      - **Alt+F7** - used as 'Find Usages'
      - **Alt+F8** - used as 'Evaluate(in debugger context)'
+
+- Installs Ubuntu font family and updates default fonts to those
 
 - Sets fs.inotify.max_user_watches in sysctl to fs.inotify.max_user_watches to prevent issues with some IDEs
 

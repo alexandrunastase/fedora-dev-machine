@@ -1,0 +1,46 @@
+---
+
+- name: Install requirements
+  package:
+    name: 
+     - python3-psutil
+    state: latest
+  become: yes
+  
+- name: Install dynamic panel transparency gnome extension
+  get_url: 
+     url: https://extensions.gnome.org/extension-data/dynamic-panel-transparencyrockon999.github.io.v32.shell-extension.zip
+     dest: /tmp/dynamic panel transparency.zip
+
+- name: Ensure extension folder exists
+  file: 
+     path: /home/{{ansible_user}}/.local/share/gnome-shell/extensions/dynamic-panel-transparency@rockon999.github.io
+     state: directory
+
+- name: Extract dynamic panel transparency extension
+  unarchive: 
+     src: /tmp/dynamic panel transparency.zip
+     dest: /home/{{ansible_user}}/.local/share/gnome-shell/extensions/dynamic-panel-transparency@rockon999.github.io
+     owner: "{{ ansible_user }}"
+
+- name: Enable dynamic panel transparency
+  command: 'gnome-shell-extension-tool -e dynamic-panel-transparency@rockon999.github.io'
+  ignore_errors: yes #This can throw an error that says the extension is already enabled
+  
+- name: Enable opacity
+  dconf:
+     key: /org/gnome/shell/extensions/dynamic-panel-transparency/enable-opacity
+     value: 'true'
+     state: present
+
+- name: Set maximized opacity
+  dconf:
+     key: /org/gnome/shell/extensions/dynamic-panel-transparency/maximized-opacity
+     value: '0'
+     state: present
+
+- name: Set maximized opacity
+  dconf:
+     key: /org/gnome/shell/extensions/dynamic-panel-transparency/unmaximized-opacity
+     value: '90'
+     state: present

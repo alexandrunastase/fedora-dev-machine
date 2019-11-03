@@ -106,23 +106,33 @@
      key: /org/gnome/desktop/wm/keybindings/begin-resize
      value: "['<Super>F8']"
 
-- name: Disable system Ctrl+Shift+e keyboard shortcut used for IDE
+- name: Disable system Ctrl+Shift+E keyboard shortcut used for IDE
   dconf: 
      key: /desktop/ibus/panel/emoji/hotkey
      value: "['<Control><Shift><Super>e']"
+
+- name: Create binding for System Information
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/binding
+     value: "'<Super>Pause'"
+
+- name: Set the command for the System Information binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/command
+     value: "'gnome-control-center info-overview'"
+
+- name: Set the name for the System Information binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/name
+     value: "'System Information'"
 
 # Note: This will override other custom keybindings
 - name: Add custom keybindings
   dconf: 
      key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
-     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/']"
+     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/']"
 
 # Other Gnome tweaks
-
-- name: Set Source Code Pro Bold 11 as monospace font
-  dconf: 
-     key: /org/gnome/desktop/interface/monospace-font-name
-     value: "'Source Code Pro Bold 11'"
 
 - name: Set antialiasing to subpixel
   dconf: 

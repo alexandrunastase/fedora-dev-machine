@@ -7,12 +7,18 @@
 
 
 # fish_aliases:
-#  - alias: ktl
+# - alias: n.
+#   command: "nautilus ."
+#  - alias: kctl
 #    command: "kubectl"
 #  - alias: kns
 #    command: "kubens"
-#  - alias: ktx
+#  - alias: kctx
 #    command: "kubectx"
+
+# fish_variables:
+#   - name: NPM_CONFIG_PREFIX
+#     value: "~/.npm-global"
 
 #dotnet_core_sdk_version: 3.0
 
@@ -24,5 +30,6 @@
 packages:
   - exa
   - deluge
+  - ranger
   - lm_sensors
   - dconf-editor

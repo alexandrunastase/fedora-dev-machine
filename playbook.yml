@@ -14,7 +14,10 @@
     - docker
     - kubernetes
 
+    - fonts
     - os-configuration
+    - gnome-extensions
+    - yaru
     
   vars_files: 
     - vars.yml

@@ -1,0 +1,7 @@
+---
+
+- name: Include dash-to-dock tasks
+  include: dash_to_dock.yml
+
+- name: Include appindicator tasks
+  include: appindicator.yml

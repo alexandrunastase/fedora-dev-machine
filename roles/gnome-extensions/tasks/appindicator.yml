@@ -1,0 +1,28 @@
+---
+
+- name: Install requirements
+  package:
+    name: 
+     - python3-psutil
+    state: latest
+  become: yes
+  
+- name: Install appindicator gnome extension
+  get_url: 
+     url: https://extensions.gnome.org/extension-data/appindicatorsupportrgcjonas.gmail.com.v30.shell-extension.zip
+     dest: /tmp/appindicator.zip
+
+- name: Ensure extension folder exists
+  file: 
+     path: /home/{{ansible_user}}/.local/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com
+     state: directory
+
+- name: Extract appindicator extension
+  unarchive: 
+     src: /tmp/appindicator.zip
+     dest: /home/{{ansible_user}}/.local/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com
+     owner: "{{ ansible_user }}"
+
+- name: Enable appindicator
+  command: 'gnome-shell-extension-tool -e appindicatorsupport@rgcjonas.gmail.com'
+  ignore_errors: yes #This can throw an error that says the extension is already enabled

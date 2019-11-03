@@ -14,7 +14,10 @@
 
 - name: Install docker
   package: 
-    name: docker-ce
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
     state: latest
   become: yes
 
@@ -29,6 +32,7 @@
   systemd:
     name: docker
     enabled: true
+    state: reloaded
   become: yes
 
 - name: Download docker-compose

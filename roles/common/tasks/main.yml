@@ -4,8 +4,9 @@
   package: 
      name: 
        - git
-       - flatpak
        - vim
        - htop
+       - unzip
+       - flatpak
      state: latest
   become: yes

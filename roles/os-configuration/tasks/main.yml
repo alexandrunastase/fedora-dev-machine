@@ -200,4 +200,9 @@
   dconf: 
      key: /org/gnome/desktop/screensaver/picture-uri
      value: "'file:///home/{{ansible_user}}/Pictures/lock_screen.jpg'"
- 
+
+# Window Titlebars
+- name: Add minimize & maximize buttons to the titlebar
+  dconf:
+     key: /org/gnome/desktop/wm/preferences/button-layout
+     value: "'appmenu:minimize,maximize,close'"

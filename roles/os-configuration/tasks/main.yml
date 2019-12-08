@@ -51,20 +51,26 @@
      key: /org/gnome/desktop/wm/keybindings/close
      value: "['<Primary>q']"
      
-- name: Set Super+E shortcut to open the file manager
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/home
-     value: "'<Super>e'"
-
-- name: Set Super+B shortcut to open the browser
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/www
-     value: "'<Super>b'"
-
 - name: Set Super+D shortcut to show the desktop
   dconf: 
      key: /org/gnome/desktop/wm/keybindings/show-desktop
      value: "['<Super>d']"
+
+
+- name: Create binding for nautilus
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/binding
+     value: "'<Super>e'"
+
+- name: Set the command for the nautilus binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/command
+     value: "'nautilus'"
+
+- name: Set the name for the nautilus binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/name
+     value: "'Nautilus File manager'"
 
 - name: Create binding for terminal
   dconf: 
@@ -130,7 +136,7 @@
 - name: Add custom keybindings
   dconf: 
      key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
-     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/']"
+     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/']"
 
 # Other Gnome tweaks
 

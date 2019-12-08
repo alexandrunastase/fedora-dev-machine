@@ -32,11 +32,13 @@
 - Installs **docker and docker-compose**. Configures docker to use 10.10.0.0/16 subnet with a smaller network size than the default. This was done in order to avoid issue when connecting to the AWS network via VPN
 - Installs Kubernetes and kubectx and kubens
 - Adds the following keyboard shortcuts:
-     - **Super+T** from Nautilus to open terminal from the current location in the file explorer
+     - **Super+E** starts the file manager
+     - **Super+T** from Nautilus opens terminal from the current location
      - **CTRL+Shift+Esc** opens the Sytem Monitor
      - **CTRL+Alt+T** opens the terminal
      - **Super+D** hides all windows
      - **Super+Pause** shows system information
+
 - Inhibts/overrides the following default shorcuts:
      - **Alt+F7** - used as 'Find Usages'
      - **Alt+F8** - used as 'Evaluate(in debugger context)'

@@ -25,31 +25,26 @@
      owner: "{{ ansible_user }}"
 
 - name: Enable dash-to-dock
-  command: 'gnome-shell-extension-tool -e dash-to-dock@micxgx.gmail.com'
+  command: 'gnome-extensions enable dash-to-dock@micxgx.gmail.com'
   ignore_errors: yes #This can throw an error that says the extension is already enabled
-  
+  become: yes
+
+- name: Set custom background color to true
+  dconf:
+     key: /org/gnome/shell/extensions/dash-to-dock/custom-background-color
+     value: "false"
+     state: present
+
 - name: Set transparency mode to Fixed
   dconf:
      key: /org/gnome/shell/extensions/dash-to-dock/transparency-mode
      value: "'FIXED'"
      state: present
 
-- name: Set custom background color to true
-  dconf:
-     key: /org/gnome/shell/extensions/dash-to-dock/custom-background-color
-     value: "true"
-     state: present
-
-- name: Set background color
-  dconf:
-     key: /org/gnome/shell/extensions/dash-to-dock/background-color
-     value: "'#555753'"
-     state: present
-
 - name: Set opacity for dock
   dconf: 
      key: /org/gnome/shell/extensions/dash-to-dock/background-opacity
-     value: '0.60'
+     value: '0.45'  #This value seems to work with both dark and light wallpapers
      state: present
      
 - name: Display dock at the bottom

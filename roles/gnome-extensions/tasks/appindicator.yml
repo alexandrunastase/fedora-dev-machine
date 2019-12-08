@@ -24,5 +24,6 @@
      owner: "{{ ansible_user }}"
 
 - name: Enable appindicator
-  command: 'gnome-shell-extension-tool -e appindicatorsupport@rgcjonas.gmail.com'
+  command: 'gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com'
   ignore_errors: yes #This can throw an error that says the extension is already enabled
+  become: yes

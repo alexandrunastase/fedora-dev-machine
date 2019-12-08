@@ -180,29 +180,3 @@
     value: "{{ansible_user}}"
     mode: 0644
   become: yes
-
-- name: Copy background image
-  copy:
-     src: "{{ role_path }}/files/background.jpg"
-     dest: /home/{{ansible_user}}/Pictures/background.jpg
-
-- name: Set background image
-  dconf: 
-     key: /org/gnome/desktop/background/picture-uri
-     value: "'file:///home/{{ansible_user}}/Pictures/background.jpg'"
-
-- name: Copy lockscreen image
-  copy:
-     src: "{{ role_path }}/files/lock_screen.jpg"
-     dest: /home/{{ansible_user}}/Pictures/lock_screen.jpg
-
-- name: Set lock screen image
-  dconf: 
-     key: /org/gnome/desktop/screensaver/picture-uri
-     value: "'file:///home/{{ansible_user}}/Pictures/lock_screen.jpg'"
-
-# Window Titlebars
-- name: Add minimize & maximize buttons to the titlebar
-  dconf:
-     key: /org/gnome/desktop/wm/preferences/button-layout
-     value: "'appmenu:minimize,maximize,close'"

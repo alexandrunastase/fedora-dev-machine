@@ -24,7 +24,7 @@
      owner: "{{ ansible_user }}"
 
 - name: Enable dynamic panel transparency
-  command: 'gnome-shell-extension-tool -e dynamic-panel-transparency@rockon999.github.io'
+  command: 'gnome-extensions enable dynamic-panel-transparency@rockon999.github.io'
   ignore_errors: yes #This can throw an error that says the extension is already enabled
   
 - name: Enable opacity
@@ -36,11 +36,11 @@
 - name: Set maximized opacity
   dconf:
      key: /org/gnome/shell/extensions/dynamic-panel-transparency/maximized-opacity
-     value: '0'
+     value: '55'
      state: present
 
 - name: Set maximized opacity
   dconf:
      key: /org/gnome/shell/extensions/dynamic-panel-transparency/unmaximized-opacity
-     value: '90'
+     value: '35'
      state: present

@@ -5,7 +5,6 @@
      name: 
        - gnome-characters
        - gnome-shell-extension-dash-window-list
-       - gnome-shell-extension-background-logo
        - gnome-shell-extension-launch-new-instance
        - gnome-shell-extension-apps-menu
      state: absent

@@ -1,7 +1,10 @@
 ---
 
-- name: Include dash-to-dock tasks
+- name: Include dash-to-dock extension tasks
   include: dash_to_dock.yml
 
-- name: Include appindicator tasks
+- name: Include appindicator extension (Tray icons) tasks
   include: appindicator.yml
+
+- name: Include dynamic panel transparency extension tasks
+  include: dynamic_panel_transparency.yml

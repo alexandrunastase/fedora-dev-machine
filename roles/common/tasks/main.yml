@@ -6,6 +6,7 @@
        - git
        - vim
        - htop
+       - powertop
        - unzip
        - flatpak
      state: latest

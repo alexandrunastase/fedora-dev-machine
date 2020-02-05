@@ -7,3 +7,8 @@ fish_aliases: []
 fish_variables: []
 #  - name: NPM_CONFIG_PREFIX
 #    value: "~/.npm-global"
+
+
+fish_functions: []
+  # - name: dynamic_dir
+  #   command: "cd $CUSTOM_PATH/dynamic/$argv"

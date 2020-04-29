@@ -2,9 +2,9 @@
 
 - name: Install requirements
   package: 
-     name: 
-      - gnome-tweak-tool
-      - python3-psutil
+     name:
+       - gnome-tweak-tool
+       - python3-psutil
      state: present
   become: yes
 
@@ -43,6 +43,13 @@
     regexp: '^installonly_limit='
     line: 'installonly_limit=10'
   become: yes
+
+
+# Disable hot corners
+- name: Set Super+D shortcut to show the desktop
+  dconf: 
+     key: /org/gnome/desktop/interface/enable-hot-corners
+     value: "false"
 
 # Set keyboard shortcuts
 

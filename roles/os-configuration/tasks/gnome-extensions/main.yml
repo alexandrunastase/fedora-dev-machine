@@ -6,5 +6,5 @@
 - name: Include appindicator extension (Tray icons) tasks
   include: appindicator.yml
 
-- name: Include dynamic panel transparency extension tasks
-  include: dynamic_panel_transparency.yml
+- name: Include hide-top-bar extension tasks
+  include: hide-top-bar.yml

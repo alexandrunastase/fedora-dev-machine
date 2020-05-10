@@ -15,6 +15,10 @@
   loop: "{{ packages }}"
   become: yes
 
+- include_tasks: systemd.yml
+- include_tasks: appearance.yml
+- include_tasks: gnome-extensions/main.yml
+
 # Increase number of inotify watchers to prevent issues with some IDEs
 # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 
@@ -36,7 +40,6 @@
 
 
 # Set number of kernels to keep to 10
-
 - name: Set number of backup kernels
   lineinfile:
     path: /etc/dnf/dnf.conf
@@ -55,7 +58,6 @@
   dconf: 
      key: /org/gnome/desktop/wm/keybindings/show-desktop
      value: "['<Super>d']"
-
 
 - name: Create binding for nautilus
   dconf: 

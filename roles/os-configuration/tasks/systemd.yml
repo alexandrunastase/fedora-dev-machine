@@ -1,0 +1,8 @@
+---
+
+- name: Limit the maximum size if the systemd log
+  lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: '^#?SystemMaxUse='
+    line: 'SystemMaxUse=500M'
+  become: yes

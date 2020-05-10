@@ -9,6 +9,21 @@
      state: latest
   become: yes
 
+- name: Add yarn repo to dnf repositories
+  get_url: 
+     url: https://dl.yarnpkg.com/rpm/yarn.repo
+     dest: /etc/yum.repos.d/microsoft-prod.repo
+     owner: root
+     group: root
+  become: yes
+
+- name: Install requirements
+  package: 
+     name: 
+       - yarn
+     state: latest
+  become: yes
+
 - name: Make current user owner of global node_modules to allow installing of npm packages globally
   file:
     path: /home/{{ansible_user}}/.npm-global
@@ -83,3 +98,5 @@
   template:
      src: git_config.j2
      dest: /home/{{ ansible_user }}/.gitconfig
+
+- include_tasks: vscode.yml

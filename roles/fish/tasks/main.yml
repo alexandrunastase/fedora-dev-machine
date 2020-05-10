@@ -35,6 +35,11 @@
   args:
     executable: /usr/bin/fish
 
+- name: Install fish autocompletion
+  shell: 'fisher add evanlucas/fish-kubectl-completions'
+  args:
+    executable: /usr/bin/fish
+
 - name: Set fish as default shell
   command: "usermod -s /usr/bin/fish {{ansible_user}}"
   become: yes

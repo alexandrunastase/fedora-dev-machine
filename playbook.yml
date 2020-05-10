@@ -2,13 +2,11 @@
 
 - hosts: localhost
   roles:
-    - cleanup
     - common
 
     - brave
     - fish
 
-    - vscode
     - development-tools
     - dotnet-core
     - docker
@@ -16,8 +14,6 @@
 
     - fonts
     - os-configuration
-    - gnome-extensions
-    - yaru
     
   vars_files: 
     - vars.yml

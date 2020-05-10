@@ -1,5 +1,7 @@
 ---
 
+- include_tasks: cleanup.yml
+
 - name: Install common packages
   package: 
      name: 
@@ -8,5 +10,7 @@
        - htop
        - unzip
        - flatpak
+       # used as replacement for ls
+       - exa 
      state: latest
   become: yes

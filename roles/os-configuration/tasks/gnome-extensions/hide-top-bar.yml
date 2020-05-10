@@ -1,0 +1,34 @@
+---
+
+- name: Install requirements
+  package:
+    name: 
+     - python3-psutil
+    state: latest
+  become: yes
+  
+- name: Install hide top bar gnome extension
+  get_url: 
+     url: https://extensions.gnome.org/extension-data/hidetopbarmathieu.bidon.ca.v69.shell-extension.zip
+     dest: /tmp/hide_top_bar.zip
+
+- name: Ensure extension folder exists
+  file: 
+     path: /home/{{ansible_user}}/.local/share/gnome-shell/extensions/hidetop@barmathieu.bidon.ca
+     state: directory
+
+- name: Extract hide_top_bar extension
+  unarchive: 
+     src: /tmp/hide_top_bar.zip
+     dest: /home/{{ansible_user}}/.local/share/gnome-shell/extensions/hidetop@barmathieu.bidon.ca
+     owner: "{{ ansible_user }}"
+
+- name: Enable hide_top_bar
+  command: 'gnome-extensions enable hidetop@barmathieu.bidon.ca'
+  ignore_errors: yes #This can throw an error that says the extension is already enabled
+  
+- name: Enable showing the top bar on mouse hover
+  dconf:
+     key: /org/gnome/shell/extensions/hidetopbar/enable-active-window
+     value: 'true'
+     state: present

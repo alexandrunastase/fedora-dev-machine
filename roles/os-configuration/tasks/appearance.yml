@@ -8,10 +8,11 @@
      enablerepo: 'deadmozay/yaru-theme'
   become: yes
 
+
 - name: Set applications theme
   dconf:
      key: /org/gnome/desktop/interface/gtk-theme
-     value: "'Yaru-dark'"
+     value: "'Adwaita-dark'"
      state: present
      
 - name: Set cursor theme

@@ -1,6 +1,6 @@
 ## Fedora Workstation provisioning using Ansible
 
- Note: The playbook was tested only on Fedora 31.
+Note: The playbook is tested and optimized for Fedora Workstation 32.
 
 ### What the playbook does:
 
@@ -8,15 +8,17 @@
     - git
     - vim
     - htop
-    - ranger
     - flatpak
+    - exa
 
 - Installs and adds sensible defaults to the following gnome extensions:
    - dash-to-dock
    - appindicator (for tray icons)
    - dynamic-panel-transparency
+They can also be managed or updated from : https://extensions.gnome.org/local/ using the chrme extension: https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep?hl=en
 
-- Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme.
+- Sets max size for systemd logs to 500 MB
+- Instals and configures **fish shell**. It includes **fzf** and **fzf fish plugin** to enable history search and the **pure** theme. Also adds kubectl autocompletions
 - Installs **Brave** browser
 - Installs the following development tools:
     - Postman (https://www.getpostman.com)
@@ -43,7 +45,8 @@
      - **Alt+F7** - used as 'Find Usages'
      - **Alt+F8** - used as 'Evaluate(in debugger context)'
 
-- Installs Ubuntu font family and updates default fonts to those
+- Installs Ubuntu font family and updates default regular fonts
+- Installs Jetbrains Mono font family and updates default monospace font
 
 - Sets fs.inotify.max_user_watches in sysctl to fs.inotify.max_user_watches to prevent issues with some IDEs
 
@@ -57,7 +60,7 @@ Note:
 #### **1. Copy the vars.yml file**
 
 ```bash
-$ cp vars.yml-example vars.yml
+$ cp vars.yml.dist vars.yml
 ```
 The vars.yml file contains some variables that can override the default variable in the Ansible roles
 

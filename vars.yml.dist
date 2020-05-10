@@ -9,18 +9,22 @@
 # fish_aliases:
 # - alias: n.
 #   command: "nautilus ."
-#  - alias: kctl
+#  - alias: kc
 #    command: "kubectl"
 #  - alias: kns
 #    command: "kubens"
 #  - alias: kctx
 #    command: "kubectx"
+#  - alias: c.
+#    command: "code ."
+#  - alias: ls
+#    command: "exa"
 
 # fish_variables:
 #   - name: NPM_CONFIG_PREFIX
 #     value: "~/.npm-global"
 
-#dotnet_core_sdk_version: 3.0
+#dotnet_sdk_version: 3.1
 
 #flatpak_urls: 
 #   - https://flathub.org/repo/appstream/org.videolan.VLC.flatpakref
@@ -28,7 +32,6 @@
 #   - https://flathub.org/repo/appstream/com.skype.Client.flatpakref
 
 packages:
-  - exa
   - deluge
   - ranger
   - lm_sensors

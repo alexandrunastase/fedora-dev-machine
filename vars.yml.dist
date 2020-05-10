@@ -36,3 +36,4 @@ packages:
   - ranger
   - lm_sensors
   - dconf-editor
+  - gnome-shell-extension-pomodoro

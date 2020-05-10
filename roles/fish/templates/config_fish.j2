@@ -5,3 +5,15 @@ alias {{alias.alias}}="{{alias.command}}"
 {% for variable in fish_variables %}
 set -x {{variable.name}} {{variable.value}}
 {% endfor %}
+
+{% for function in fish_functions %}
+function {{function.name}}
+    {{function.command}}
+end
+{% endfor %}
+
+function unset
+  set --erase $argv
+end
+
+funcsave unset

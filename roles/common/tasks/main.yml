@@ -8,6 +8,7 @@
        - git
        - vim
        - htop
+       - powertop
        - unzip
        - flatpak
        # used as replacement for ls

@@ -31,7 +31,16 @@
     reload: yes
   become: yes
 
-# Set hostname
+- name: Increase number of inotify instances (fixes issue with dotnet watch)
+  sysctl:
+    name: fs.inotify.max_user_instances
+    value: '524288'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: yes
+
+  # Set hostname
 
 - name: Set the hostname of the machine
   hostname:

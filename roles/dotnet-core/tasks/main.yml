@@ -1,7 +1,0 @@
----
-
-- name: Install .NET Core SDK
-  package:
-    name: dotnet-sdk-{{dotnet_sdk_version}}
-    state: latest
-  become: yes 

@@ -1,0 +1,131 @@
+# Set keyboard shortcuts
+
+- name: Set Ctrl+Q shortcut to close a window
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/close
+     value: "['<Primary>q']"
+     
+- name: Set Super+D shortcut to show the desktop
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/show-desktop
+     value: "['<Super>d']"
+
+- name: Create binding for nautilus
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/binding
+     value: "'<Super>e'"
+
+- name: Set the command for the nautilus binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/command
+     value: "'nautilus'"
+
+- name: Set the name for the nautilus binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/name
+     value: "'Nautilus File manager'"
+
+- name: Create binding for terminal
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/binding
+     value: "'<Primary><Alt>t'"
+
+- name: Set the command for the terminal binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/command
+     value: "'tilix'"
+
+- name: Set the name for the terminal binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/name
+     value: "'Terminal'"
+
+- name: Create binding for System Monitor
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/binding
+     value: "'<Primary><Shift>Escape'"
+
+- name: Set the command for the System Monitor binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/command
+     value: "'gnome-system-monitor'"
+
+- name: Set the name for the System Monitor binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/name
+     value: "'System Monitor'"
+
+- name: Change system Alt+F7 keyboard shortcut used for IDE
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/begin-move
+     value: "['<Super>F7']"
+
+- name: Change system Alt+F8 keyboard shortcut used for IDE
+  dconf: 
+     key: /org/gnome/desktop/wm/keybindings/begin-resize
+     value: "['<Super>F8']"
+
+- name: Disable system Ctrl+Shift+E keyboard shortcut used for IDE
+  dconf: 
+     key: /desktop/ibus/panel/emoji/hotkey
+     value: "['<Control><Shift><Super>e']"
+
+- name: Create binding for System Information
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/binding
+     value: "'<Super>Pause'"
+
+- name: Set the command for the System Information binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/command
+     value: "'gnome-control-center info-overview'"
+
+- name: Set the name for the System Information binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/name
+     value: "'System Information'"
+
+- name: Create binding for kupfer
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/kupfer_keybinding/binding
+     value: "'<Primary>space'"
+
+- name: Set the command for the kupfer binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/kupfer_keybinding/command
+     value: "'kupfer -show'"
+
+- name: Set the name for the kupfer binding
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/kupfer_keybinding/name
+     value: "'kupfer'"
+
+# Note: This will override other custom keybindings
+- name: Add custom keybindings
+  dconf: 
+     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/kupfer_keybinding/']"
+
+# Set shortcut for opening terminal from nautilus
+# https://stackoverflow.com/questions/48840027/ubuntu-open-terminal-in-current-folder-with-shortcut
+
+- name: Ensure nautilus scripts folder exists
+  file:
+    path: /home/{{ansible_user}}/.local/share/nautilus/scripts
+    state: directory
+
+- name: Create Terminal script
+  template:
+    src: nautilus_terminal_script.j2
+    dest: /home/{{ansible_user}}/.local/share/nautilus/scripts/Terminal
+
+- name: Make Terminal script executable
+  file:
+    path: /home/{{ansible_user}}/.local/share/nautilus/scripts/Terminal
+    mode: a+x
+
+- name: Create nautilus script-accels file
+  template:
+    src: script-accels.j2
+    dest: /home/{{ansible_user}}/.config/nautilus/scripts-accels
+    

@@ -4,20 +4,19 @@
   package: 
      name:
        - gnome-tweak-tool
-       - python3-psutil
      state: present
   become: yes
 
-- name: Install extra packages
-  package:
-    name: '{{ item }}'
-    state: present
-  loop: "{{ packages }}"
-  become: yes
-
+- include_tasks: keyboard_shortcuts.yml
 - include_tasks: systemd.yml
-- include_tasks: appearance.yml
 - include_tasks: gnome-extensions/main.yml
+
+
+# Disable hot corners
+- name: Disable hot corners
+  dconf: 
+     key: /org/gnome/desktop/interface/enable-hot-corners
+     value: "false"
 
 # Increase number of inotify watchers to prevent issues with some IDEs
 # https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
@@ -48,114 +47,6 @@
   when: machine_hostname != ""
 
 
-# Set number of kernels to keep to 10
-- name: Set number of backup kernels
-  lineinfile:
-    path: /etc/dnf/dnf.conf
-    regexp: '^installonly_limit='
-    line: 'installonly_limit=10'
-  become: yes
-
-
-# Disable hot corners
-- name: Set Super+D shortcut to show the desktop
-  dconf: 
-     key: /org/gnome/desktop/interface/enable-hot-corners
-     value: "false"
-
-# Set keyboard shortcuts
-
-- name: Set Ctrl+Q shortcut to close a window
-  dconf: 
-     key: /org/gnome/desktop/wm/keybindings/close
-     value: "['<Primary>q']"
-     
-- name: Set Super+D shortcut to show the desktop
-  dconf: 
-     key: /org/gnome/desktop/wm/keybindings/show-desktop
-     value: "['<Super>d']"
-
-- name: Create binding for nautilus
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/binding
-     value: "'<Super>e'"
-
-- name: Set the command for the nautilus binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/command
-     value: "'nautilus'"
-
-- name: Set the name for the nautilus binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/name
-     value: "'Nautilus File manager'"
-
-- name: Create binding for terminal
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/binding
-     value: "'<Primary><Alt>t'"
-
-- name: Set the command for the terminal binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/command
-     value: "'gnome-terminal'"
-
-- name: Set the name for the terminal binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/name
-     value: "'Terminal'"
-
-- name: Create binding for System Monitor
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/binding
-     value: "'<Primary><Shift>Escape'"
-
-- name: Set the command for the System Monitor binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/command
-     value: "'gnome-system-monitor'"
-
-- name: Set the name for the System Monitor binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/name
-     value: "'System Monitor'"
-
-- name: Change system Alt+F7 keyboard shortcut used for IDE
-  dconf: 
-     key: /org/gnome/desktop/wm/keybindings/begin-move
-     value: "['<Super>F7']"
-
-- name: Change system Alt+F8 keyboard shortcut used for IDE
-  dconf: 
-     key: /org/gnome/desktop/wm/keybindings/begin-resize
-     value: "['<Super>F8']"
-
-- name: Disable system Ctrl+Shift+E keyboard shortcut used for IDE
-  dconf: 
-     key: /desktop/ibus/panel/emoji/hotkey
-     value: "['<Control><Shift><Super>e']"
-
-- name: Create binding for System Information
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/binding
-     value: "'<Super>Pause'"
-
-- name: Set the command for the System Information binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/command
-     value: "'gnome-control-center info-overview'"
-
-- name: Set the name for the System Information binding
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/name
-     value: "'System Information'"
-
-# Note: This will override other custom keybindings
-- name: Add custom keybindings
-  dconf: 
-     key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
-     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nautilus_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_monitor_keybinding/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system_information_keybinding/']"
-
 # Other Gnome tweaks
 
 - name: Set antialiasing to subpixel
@@ -163,44 +54,21 @@
      key: /org/gnome/settings-daemon/plugins/xsettings/antialiasing
      value: "'rgba'"
 
-# Set shortcut for opening terminal from nautilus
-# https://stackoverflow.com/questions/48840027/ubuntu-open-terminal-in-current-folder-with-shortcut
-
-- name: Ensure nautilus scripts folder exists
-  file:
-    path: /home/{{ansible_user}}/.local/share/nautilus/scripts
-    state: directory
-
-- name: Create Terminal script
-  template:
-    src: nautilus_terminal_script.j2
-    dest: /home/{{ansible_user}}/.local/share/nautilus/scripts/Terminal
-
-- name: Make Terminal script executable
-  file:
-    path: /home/{{ansible_user}}/.local/share/nautilus/scripts/Terminal
-    mode: a+x
-
-- name: Create nautilus script-accels file
-  template:
-    src: script-accels.j2
-    dest: /home/{{ansible_user}}/.config/nautilus/scripts-accels
-
-# Enable automatic login
-- name: Set AutomaticLoginEnable to True
-  ini_file:
-    path: /etc/gdm/custom.conf
-    section: daemon
-    option: AutomaticLoginEnable
-    value: 'True'
-    mode: 0644
-  become: yes
+# # Enable automatic login
+# - name: Set AutomaticLoginEnable to True
+#   ini_file:
+#     path: /etc/gdm/custom.conf
+#     section: daemon
+#     option: AutomaticLoginEnable
+#     value: 'True'
+#     mode: 0644
+#   become: yes
   
-- name: Enable AutomaticLogin to the current user
-  ini_file:
-    path: /etc/gdm/custom.conf
-    section: daemon
-    option: AutomaticLogin
-    value: "{{ansible_user}}"
-    mode: 0644
-  become: yes
+# - name: Enable AutomaticLogin to the current user
+#   ini_file:
+#     path: /etc/gdm/custom.conf
+#     section: daemon
+#     option: AutomaticLogin
+#     value: "{{ansible_user}}"
+#     mode: 0644
+#   become: yes

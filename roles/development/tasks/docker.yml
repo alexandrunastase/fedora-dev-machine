@@ -1,0 +1,29 @@
+---
+
+- name: Add daemon.json configuration
+  template: 
+    src: docker-daemon.json.j2
+    dest: /etc/docker/daemon.json
+  become: yes
+
+- name: Install docker
+  package: 
+    name:
+      - docker
+      - docker-compose
+    state: latest
+  become: yes
+
+- name: Add user to docker group
+  user: 
+     name: "{{ansible_user}}"
+     groups: docker
+     append: yes
+  become: yes
+
+- name: Enable docker service at startup
+  systemd:
+    name: docker
+    enabled: true
+    state: reloaded
+  become: yes

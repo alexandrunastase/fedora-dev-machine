@@ -1,0 +1,3 @@
+# meta/main.yml
+dependencies:
+- kewlfft.aur

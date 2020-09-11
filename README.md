@@ -1,4 +1,4 @@
-## Fedora Workstation provisioning using Ansible
+## Manjaro development provisioning
 
 Note: The playbook is tested and optimized for Fedora Workstation 32.
 

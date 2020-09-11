@@ -1,0 +1,18 @@
+---
+
+- name: Install kubectl
+  package:
+    name:
+      - kubectl
+      - kubectx
+    state: present
+  become: yes
+
+- name: Download kash to /usr/local/bin
+  get_url: 
+     force: yes
+     url: https://raw.githubusercontent.com/do87/kash/v2.0/kash
+     dest: /usr/local/bin/kash
+     mode: 0550
+     owner: "{{ansible_user}}"
+  become: yes

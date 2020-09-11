@@ -1,0 +1,22 @@
+---
+
+- name: Remove packages
+  package: 
+    name: '{{item}}'
+    state: absent
+  with_items: "{{ packages_to_remove }}"
+  become: yes
+
+- name: Install packages
+  package: 
+     name: "{{ item }}"
+     state: present
+  with_items: "{{ packages }}"
+  become: yes
+
+- name: Install flatpaks
+  flatpak:
+    name: '{{ item }}'
+    state: present
+  with_items: "{{ flatpak_urls }}"
+  become: yes

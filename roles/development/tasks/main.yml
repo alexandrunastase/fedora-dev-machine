@@ -3,26 +3,14 @@
 - name: Install requirements
   package: 
      name: 
-       - flatpak
        - git
        - nodejs
-     state: latest
-  become: yes
-
-- name: Add yarn repo to dnf repositories
-  get_url: 
-     url: https://dl.yarnpkg.com/rpm/yarn.repo
-     dest: /etc/yum.repos.d/microsoft-prod.repo
-     owner: root
-     group: root
-  become: yes
-
-- name: Install requirements
-  package: 
-     name: 
        - yarn
      state: latest
   become: yes
+
+- include_tasks: kubernetes.yml
+- include_tasks: vscode.yml
 
 - name: Make current user owner of global node_modules to allow installing of npm packages globally
   file:
@@ -36,7 +24,7 @@
 
 - name: Download jetbrains toolbox
   get_url: 
-     url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.14.5179.tar.gz
+     url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.17.7275.tar.gz
      dest: /tmp/jetbrains_toolbox.tar.gz
      mode: 0550
 
@@ -52,7 +40,7 @@
     
 - name: Copy jetbrains toolbox extracted folder to home
   copy:
-    src: /tmp/jetbrains-toolbox-1.14.5179/jetbrains-toolbox
+    src: /tmp/jetbrains-toolbox-1.17.7275/jetbrains-toolbox
     dest: /home/{{ansible_user}}/
     owner: '{{ansible_user}}'
     group: '{{ansible_user}}'
@@ -60,21 +48,13 @@
 
 - name: Remove extracted folder
   file:
-    path: /tmp/jetbrains-toolbox-1.14.5179
+    path: /tmp/jetbrains-toolbox-1.17.7275
     state: absent
 
 - name: Remove archive
   file:
     path: /tmp/jetbrains_toolbox.tar.gz
     state: absent
-
-# Install flatpaks
-- name: Install flatpaks
-  flatpak:
-    name: '{{ item }}'
-    state: present
-  loop: "{{ flatpak_urls }}"
-  become: yes
 
 # Devilbox
 - name: Ensure Projects folder exists
@@ -96,7 +76,7 @@
 # Configure git
 - name: Create or override .gitconfig file
   template:
-     src: git_config.j2
+     src: git.config.j2
      dest: /home/{{ ansible_user }}/.gitconfig
 
-- include_tasks: vscode.yml
+- include_tasks: docker.yml

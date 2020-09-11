@@ -1,19 +1,16 @@
 ---
 
 - hosts: localhost
-  roles:
-    - common
 
-    - brave
+  roles:
+    # - kewlfft.aur
+    # - software
+
+    # - development
     - fish
 
-    - development-tools
-    - dotnet-core
-    - docker
-    - kubernetes
-
-    - fonts
-    - os-configuration
+    # - os-configuration
+    # - appearance
     
   vars_files: 
     - vars.yml

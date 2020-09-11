@@ -1,10 +1,4 @@
 ---
 
-- name: Include dash-to-dock extension tasks
-  include: dash_to_dock.yml
-
 - name: Include appindicator extension (Tray icons) tasks
   include: appindicator.yml
-
-- name: Include hide-top-bar extension tasks
-  include: hide-top-bar.yml
